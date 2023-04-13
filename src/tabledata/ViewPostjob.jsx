@@ -20,7 +20,7 @@ const ViewPostjob = ({addjobdata}) => {
   
       const edituserinfo=()=>{
 
-
+        addjobdata(0)
       }
   return (
     <>
@@ -28,7 +28,7 @@ const ViewPostjob = ({addjobdata}) => {
         width:'95%',marginLeft:'10px'
         
       }}>
-        <button style={{ backgroundColor:'blue',marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}}onClick={()=>addjobdata(0)}>ADD Job Data</button>
+        <button className="buttojob" onClick={()=>addjobdata(0)}>ADD Job Data</button>
               <table border={3} width="60" cellPadding={10} className='table'>
                 <thead>
                   <tr>

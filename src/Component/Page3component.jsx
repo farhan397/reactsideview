@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Axios from "axios";
-import { useSelector } from 'react-redux';
 
+import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import {adduserinfo} from '../service/actions/actions'
 import userinformation from '../service/reducers/reducer';
@@ -9,12 +9,21 @@ import ViewPostjob from '../tabledata/ViewPostjob';
 
 
 const Page3component = (Props) => {
+  const getindex = useSelector(state => state.getindex);
+  const foamsdata = useSelector(state => state.shiftinformation);
+
   const [jobdata, setjobdata] = useState(0);
-  const [monday, setmonday] = useState("");
-  const [tuesday, settuesday] = useState("");
-  const [wednesday, setwednesday] = useState("");
-  const [thursday, setthursday] = useState("");
-  const [friday, setfriday] = useState("");
+  const [clickstatusm, setclickstatusm] = useState(0);
+  const [clickstatustu, setclickstatustu] = useState(0);
+  const [clickstatusw, setclickstatusw] = useState(0);
+  const [clickstatust, setclickstatust] = useState(0);
+  const [clickstatusf, setclickstatusf] = useState(0);
+  
+  const [monday, setmonday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stmonday:"08am-05am");
+  const [tuesday, settuesday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.sttuesday:"07pm-04am");
+  const [wednesday, setwednesday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stwednesday:"08pm-05am");
+  const [thursday, setthursday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stthursday:"07pm-03am");
+  const [friday, setfriday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stfriday:"10pm-07am");
   
 
   const foam1data = useSelector(state => state.userinformation);
@@ -39,6 +48,11 @@ const Page3component = (Props) => {
 
   const jobpostclick = () => {
 
+    if(clickstatusm===1)
+    {
+      
+    }
+
     Props.addToshiftHandler({
       lokingfor:userinformations.infodata.joblokings,
       education:userinformations.infodata.usereduc,
@@ -50,6 +64,7 @@ const Page3component = (Props) => {
       genders:condinformations.conddata.genders,
       hourlyrate:condinformations.conddata.hourlyrate,
       equpdescrption:condinformations.conddata.equpdescrption,
+    
       stmonday: monday,
       sttuesday: tuesday,
       stwednesday: wednesday,
@@ -57,6 +72,7 @@ const Page3component = (Props) => {
       stfriday: friday
       
    })
+   alert("Job Post sucessfully")
 
    setjobdata(1);
    Props.getvisiblefoam3(3);
@@ -65,6 +81,57 @@ const Page3component = (Props) => {
     
 
   }
+  const getBackgroundColorm= () => {
+    let color;
+    if (clickstatusm === 0) {
+      color = "#d5d8da";
+    } else if (clickstatusm === 1) {
+      color = "#006ab3";
+    }
+    
+    return color;
+  }
+  const getBackgroundColortu = () => {
+    let color;
+    if (clickstatustu === 0) {
+      color = "#d5d8da";
+    } else if (clickstatustu === 1) {
+      color = "#006ab3";
+    }
+    
+    return color;
+  }
+  const getBackgroundColorw = () => {
+    let color;
+    if (clickstatusw === 0) {
+      color = "#d5d8da";
+    } else if (clickstatusw === 1) {
+      color = "#006ab3";
+    }
+    
+    return color;
+  }
+  const getBackgroundColort = () => {
+    let color;
+    if (clickstatust === 0) {
+      color = "#d5d8da";
+    } else if (clickstatust === 1) {
+      color = "#006ab3";
+    }
+    
+    return color;
+  }
+  const getBackgroundColorf = () => {
+    let color;
+    if (clickstatusf === 0) {
+      color = "#d5d8da";
+    } else if (clickstatusf === 1) {
+      color = "#006ab3";
+    }
+    
+    return color;
+  }
+  
 
   
   return (
@@ -94,9 +161,10 @@ const Page3component = (Props) => {
           S
         </div>
         <div
-          class="divbtn1"
+          class="divbtn1" 
+          onClick={()=>setclickstatusm(1)}
           style={{
-            backgroundColor: "#006ab3",
+             backgroundColor: getBackgroundColorm(),
             borderRadius: "5px",
             width: "30px",
             color: "white",
@@ -109,8 +177,11 @@ const Page3component = (Props) => {
         </div>
         <div
           class="divbtn1"
+          onClick={()=>setclickstatustu(1)
+          
+          }
           style={{
-            backgroundColor: "#006ab3",
+            backgroundColor: getBackgroundColortu(),
             borderRadius: "5px",
             width: "30px",
             color: "white",
@@ -128,8 +199,9 @@ const Page3component = (Props) => {
         >
           <div
             class="divw1"
+            onClick={()=>setclickstatusw(1)}
             style={{
-              backgroundColor: "#006ab3",
+              backgroundColor: getBackgroundColorw(),
               borderRadius: "5px",
               borderRadius: "5px",
               width: "30px",
@@ -144,8 +216,9 @@ const Page3component = (Props) => {
           </div>
           <div
             class="divw2"
+            onClick={()=>setclickstatust(1)}
             style={{
-              backgroundColor: "#006ab3",
+              backgroundColor: getBackgroundColort(),
               borderRadius: "5px",
               width: "30px",
               color: "white",
@@ -154,12 +227,13 @@ const Page3component = (Props) => {
               textAlign: "center",
             }}
           >
-            t
+            T
           </div>
           <div
             class="divbtn1"
+            onClick={()=>setclickstatusf(1)}
             style={{
-              backgroundColor: "#006ab3",
+              backgroundColor: getBackgroundColorf(),
               borderRadius: "5px",
               width: "30px",
               color: "white",
@@ -172,6 +246,7 @@ const Page3component = (Props) => {
           </div>
           <div
             class="divbtn1"
+           
             style={{
               backgroundColor: "#d5d8da",
               borderRadius: "5px",
@@ -213,7 +288,8 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
-            value="07pm-04am"
+            disabled
+            // value="07pm-04am"
             style={{
               borderRadius: "0px 10px 10px 0px",
             }}
@@ -242,8 +318,9 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
-            // value="08pm-05am"
-            placeholder='8pm-5am'
+           defaultValue={monday}
+            //  value="08am-05am"
+            placeholder='8am-5am'
             onChange={(e) => setmonday(e.target.value)}
             style={{
               borderRadius: "0px 10px 10px 0px",
@@ -279,6 +356,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
+            defaultValue={tuesday}
             placeholder='07pm-04am'
             onChange={(e) => settuesday(e.target.value)}
             style={{
@@ -309,6 +387,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
+            defaultValue={wednesday}
             placeholder='08pm-05am'
             onChange={(e) => setwednesday(e.target.value)}
             style={{
@@ -345,6 +424,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
+            defaultValue={thursday}
             placeholder='07pm-04am'
             onChange={(e) => setthursday(e.target.value)}
             style={{
@@ -375,6 +455,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
+            defaultValue={friday}
             placeholder='08pm-05am'
             onChange={(e) => setfriday(e.target.value)}
             style={{
@@ -411,7 +492,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
-            value="07pm-04am"
+           disabled
             style={{
               borderRadius: "0px 10px 10px 0px",
             }}

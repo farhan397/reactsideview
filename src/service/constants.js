@@ -1,4 +1,4 @@
 export const ADD_USER_INFO="ADD_USER_INFO"
 export const ADD_COND_INFO="ADD_COND_INFO"
 export const ADD_SHIFT_INFO="ADD_SHIFT_INFO"
-export const CLEAR_ARRAY="CLEAR_ARRAY"
+export const EDIT_ARRAY="EDIT_ARRAY"

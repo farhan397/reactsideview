@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { editarray } from "../service/actions/actions";
 
 const View = ({ userinfo, deleteuserinfo, edituserinfo }) => {
-  return userinfo.map((jobinformation) => (
+  const dispatch = useDispatch();
+  return userinfo.map((jobinformation,index) => (
     <tr key={jobinformation.id}>
       <td>{jobinformation.shiftdata.lokingfor}</td>
       <td>{jobinformation.shiftdata.hourlyrate}</td>
@@ -13,7 +16,9 @@ const View = ({ userinfo, deleteuserinfo, edituserinfo }) => {
       <td>
         <button
           className="edit"
-          onClick={() => edituserinfo(jobinformation.jobtitle)}
+          onClick={() => {edituserinfo(jobinformation);
+            dispatch(editarray(index));
+            console.log("info",index)}}
           type="button"
           style={{
             paddingLeft: 10,

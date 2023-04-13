@@ -1,7 +1,7 @@
 import {ADD_USER_INFO} from '../constants'
 import {ADD_COND_INFO} from '../constants'
 import {ADD_SHIFT_INFO} from '../constants'
-import {CLEAR_ARRAY} from '../constants'
+import {EDIT_ARRAY} from '../constants'
 
 export const adduserinfo =(data)=>{
      console.warn("actionuserinfo",data)
@@ -24,11 +24,11 @@ export const addshiftinfo =(data)=>{
         data:data
     }
 }
-export const cleararray =()=>{
+export const editarray =(indexn)=>{
     // console.warn("CLEARARRAY",data)
    return {
-       type:CLEAR_ARRAY,
-        // data:data
+       type:EDIT_ARRAY,
+       payload: indexn
        
    }
 }

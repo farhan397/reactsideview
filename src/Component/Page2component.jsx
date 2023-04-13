@@ -1,17 +1,21 @@
 import React,{useState} from 'react'
+import { useSelector } from 'react-redux';
 
 const Page2component = (Props) => {
+
+  const getindex = useSelector(state => state.getindex);
+  const foamsdata = useSelector(state => state.shiftinformation);
   // {getvisiblefoam2,getpreviousfoam2}
     const [hrerror, sethrerror] = useState("");
     const [esderror, setesderror] = useState("");
     const [carearlavelerror, setcarearerror] = useState("");
     const [gendererror, setgendererror] = useState("");
     const [foamuserdescerror, setfoamUserdescerror] = useState("");
-    const [hourrate, sethourrate] = useState("");
-    const [esdate, setesdate] = useState("");
-    const [carearlavel, setcarearlavel] = useState("");
-    const [gender, setgender] = useState("");
-    const [fdescrption, setfdescrption] = useState("");
+    const [hourrate, sethourrate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.hourlyrate:"");
+    const [esdate, setesdate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.expdate:"")
+    const [carearlavel, setcarearlavel] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.careerlavel:"")
+    const [gender, setgender] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.genders:"")
+    const [fdescrption, setfdescrption] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.equpdescrption:"")
 
     const [isvisible, setisvisible] = useState(0);
   const [issubmit, setissubmit] = useState(false);
@@ -253,6 +257,8 @@ const Page2component = (Props) => {
                 <textarea
                   class="form-control"
                   aria-label="With textarea"
+                  defaultValue={fdescrption}
+                  value={fdescrption}
                   onChange={(e) => setfdescrption(e.target.value)}
                   style={{
                     borderColor: "black",

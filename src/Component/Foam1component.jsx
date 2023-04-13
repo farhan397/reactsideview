@@ -1,12 +1,22 @@
 import { Alert } from "bootstrap";
 import React,{useState,useEffect} from "react";
+import { useSelector } from 'react-redux';
 
 const Foam1component = (Props) => {
-  const [jobloking, setjobloking] = useState("");
-  const [userexp, setUserexp] = useState("");
-  const [useredu, setUseredu] = useState("");
-  const [userskil, setUserskil] = useState("");
-  const [userdesc, setUserdesc] = useState("");
+
+  const getindex = useSelector(state => state.getindex);
+  console.log("ddd",getindex.editinedex)
+ 
+  const foam1data = useSelector(state => state.userinformation);
+  const foamsdata = useSelector(state => state.shiftinformation);
+  
+
+  const [jobloking, setjobloking] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.lokingfor:"");
+  const [userexp, setUserexp] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.experience:"");
+   const [useredu, setUseredu] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.education:"");
+  
+  const [userskil, setUserskil] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.skill:"");
+  const [userdesc, setUserdesc] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.description:"");
 
   const [joblokingerror, setjoblokingerror] = useState("");
   const [userexperror, setUserexperror] = useState("");
@@ -16,19 +26,30 @@ const Foam1component = (Props) => {
   const [isvisibless, setisvisibless] = useState(0);
    const [isvisible, setisvisible] = useState(0);
   const [issubmit, setissubmit] = useState(false);
-  console.log("adduserinfoprops",Props)
-  const handleupclick=()=>{
-    // console.log("adduserinfoprops",Props)   
 
-     
+
+  // const getindex = useSelector(state => state.getindex);
+  // console.log("ddd",getindex.editinedex)
+ 
+  // const foamsdata = useSelector(state => state.userinformation);
+
+  // if(foamsdata.length>0){
+  // console.log("rrrd",foamsdata)
+  // let length=getindex.editinedex
+  // let userinformations=foamsdata[length]
+  // console.log(userinformations.infodata.usereduc)
+ 
+ 
+  // }
    
-     
+
+  
+
+  const handleupclick=()=>{
+
    
         console.log(jobloking)
-     // console.log(userexp)
-     // console.log(useredu)
-     // console.log(userskil)
-     // console.log(userdesc)
+     
      if (jobloking === "") {
        setjoblokingerror("select value");
        setissubmit(false);
@@ -141,7 +162,7 @@ const Foam1component = (Props) => {
               value={jobloking}
               onChange={(e) => setjobloking(e.target.value)}
             >
-              <option selected>Enter value...</option>
+              <option selected>Enter Value...</option>
               <option>Electrical engenner</option>
               <option>.net developer</option>
               <option>backend developer</option>
@@ -337,6 +358,8 @@ const Foam1component = (Props) => {
           <textarea
             class="form-control"
             aria-label="With textarea"
+            defaultValue={userdesc}
+            value={userdesc}
             onChange={(e) => setUserdesc(e.target.value)}
             style={{
               borderColor: "black",
