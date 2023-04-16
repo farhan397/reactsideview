@@ -3,14 +3,18 @@ import Axios from "axios";
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import {adduserinfo} from '../service/actions/actions'
+import { addshiftinfo } from '../service/actions/actions'
 import userinformation from '../service/reducers/reducer';
 import ViewPostjob from '../tabledata/ViewPostjob';
+import {editarray , deleteItem} from "../service/actions/actions";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Page3component = (Props) => {
+  const dispatch = useDispatch();
   const getindex = useSelector(state => state.getindex);
   const foamsdata = useSelector(state => state.shiftinformation);
+
 
   const [jobdata, setjobdata] = useState(0);
   const [clickstatusm, setclickstatusm] = useState(0);
@@ -18,77 +22,83 @@ const Page3component = (Props) => {
   const [clickstatusw, setclickstatusw] = useState(0);
   const [clickstatust, setclickstatust] = useState(0);
   const [clickstatusf, setclickstatusf] = useState(0);
-  
-  const [monday, setmonday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stmonday:"08am-05am");
-  const [tuesday, settuesday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.sttuesday:"07pm-04am");
-  const [wednesday, setwednesday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stwednesday:"08pm-05am");
-  const [thursday, setthursday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stthursday:"07pm-03am");
-  const [friday, setfriday] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.stfriday:"10pm-07am");
-  
+  const [pid, setid] = useState(0)
+  const [monday, setmonday] = useState(foamsdata.length > 0 && getindex.editinedex > -1 ? foamsdata[getindex.editinedex].stmonday : "08am-05am");
+  const [tuesday, settuesday] = useState(foamsdata.length > 0 && getindex.editinedex > -1 ? foamsdata[getindex.editinedex].sttuesday : "07pm-04am");
+  const [wednesday, setwednesday] = useState(foamsdata.length > 0 && getindex.editinedex > -1 ? foamsdata[getindex.editinedex].stwednesday : "08pm-05am");
+  const [thursday, setthursday] = useState(foamsdata.length > 0 && getindex.editinedex > -1 ? foamsdata[getindex.editinedex].stthursday : "07pm-03am");
+  const [friday, setfriday] = useState(foamsdata.length > 0 && getindex.editinedex > -1 ? foamsdata[getindex.editinedex].stfriday : "10pm-07am");
+
 
   const foam1data = useSelector(state => state.userinformation);
   const foam2data = useSelector(state => state.condinformation);
- 
-    let foamlength=foam1data.length-1;
-    let userinformations=foam1data[foamlength]
-    let foam2length=foam2data.length-1;
-    let condinformations=foam2data[foam2length]
-   
-    const foam3 = useSelector(state => state.shiftinformation);
-    console.log("foam3data",foam3)
-    // const dispatch = useDispatch();
+  console.log("ffff", foam1data)
+  console.log("ffff222", foam2data)
 
+  let foamlength = foam1data.length - 1;
+  let userinformations = foam1data[foamlength]
+  let foam2length = foam2data.length - 1;
+  let condinformations = foam2data[foam2length]
+
+  const foam3 = useSelector(state => state.shiftinformation);
   
-  
-  
+
+
+
+
+
+
 
   const getprivousfoam2 = () => {
     Props.getprevioussfoam2(1);
   }
 
   const jobpostclick = () => {
+ if(getindex.editinedex>-1){
+  
+  dispatch(deleteItem(foamsdata[getindex.editinedex].id));
+ }
 
-    if(clickstatusm===1)
-    {
-      
-    }
-
-    Props.addToshiftHandler({
-      lokingfor:userinformations.infodata.joblokings,
-      education:userinformations.infodata.usereduc,
-      experience:userinformations.infodata.userexps,
-      skill:userinformations.infodata.userskill,
-      description:userinformations.infodata.userdescp,
-      careerlavel:condinformations.conddata.careerlavel,
-      expdate:condinformations.conddata.expdate,
-      genders:condinformations.conddata.genders,
-      hourlyrate:condinformations.conddata.hourlyrate,
-      equpdescrption:condinformations.conddata.equpdescrption,
     
+    dispatch(addshiftinfo({
+      // id: foam3.length+1,
+      id:uuidv4(),
+      lokingfor: userinformations.infodata.joblokings,
+      education: userinformations.infodata.usereduc,
+      experience: userinformations.infodata.userexps,
+      skill: userinformations.infodata.userskill,
+      description: userinformations.infodata.userdescp,
+      careerlavel: condinformations.conddata.careerlavel,
+      expdate: condinformations.conddata.expdate,
+      genders: condinformations.conddata.genders,
+      hourlyrate: condinformations.conddata.hourlyrate,
+      equpdescrption: condinformations.conddata.equpdescrption,
+
       stmonday: monday,
       sttuesday: tuesday,
       stwednesday: wednesday,
       stthursday: thursday,
       stfriday: friday
-      
-   })
-   alert("Job Post sucessfully")
+    }))
 
-   setjobdata(1);
-   Props.getvisiblefoam3(3);
+    alert("Job Post sucessfully")
 
-   
-    
+    setjobdata(1);
+    dispatch(editarray(-1));
+    Props.getvisiblefoam3(3);
+
+
+
 
   }
-  const getBackgroundColorm= () => {
+  const getBackgroundColorm = () => {
     let color;
     if (clickstatusm === 0) {
       color = "#d5d8da";
     } else if (clickstatusm === 1) {
       color = "#006ab3";
     }
-    
+
     return color;
   }
   const getBackgroundColortu = () => {
@@ -98,7 +108,7 @@ const Page3component = (Props) => {
     } else if (clickstatustu === 1) {
       color = "#006ab3";
     }
-    
+
     return color;
   }
   const getBackgroundColorw = () => {
@@ -108,7 +118,7 @@ const Page3component = (Props) => {
     } else if (clickstatusw === 1) {
       color = "#006ab3";
     }
-    
+
     return color;
   }
   const getBackgroundColort = () => {
@@ -118,7 +128,7 @@ const Page3component = (Props) => {
     } else if (clickstatust === 1) {
       color = "#006ab3";
     }
-    
+
     return color;
   }
   const getBackgroundColorf = () => {
@@ -128,15 +138,15 @@ const Page3component = (Props) => {
     } else if (clickstatusf === 1) {
       color = "#006ab3";
     }
-    
+
     return color;
   }
-  
 
-  
+
+
   return (
     <>
-  
+
       <blockquote
         class="blockquote mb-0"
         style={{
@@ -161,10 +171,10 @@ const Page3component = (Props) => {
           S
         </div>
         <div
-          class="divbtn1" 
-          onClick={()=>setclickstatusm(1)}
+          class="divbtn1"
+          onClick={() => setclickstatusm(1)}
           style={{
-             backgroundColor: getBackgroundColorm(),
+            backgroundColor: getBackgroundColorm(),
             borderRadius: "5px",
             width: "30px",
             color: "white",
@@ -177,8 +187,8 @@ const Page3component = (Props) => {
         </div>
         <div
           class="divbtn1"
-          onClick={()=>setclickstatustu(1)
-          
+          onClick={() => setclickstatustu(1)
+
           }
           style={{
             backgroundColor: getBackgroundColortu(),
@@ -199,7 +209,7 @@ const Page3component = (Props) => {
         >
           <div
             class="divw1"
-            onClick={()=>setclickstatusw(1)}
+            onClick={() => setclickstatusw(1)}
             style={{
               backgroundColor: getBackgroundColorw(),
               borderRadius: "5px",
@@ -216,7 +226,7 @@ const Page3component = (Props) => {
           </div>
           <div
             class="divw2"
-            onClick={()=>setclickstatust(1)}
+            onClick={() => setclickstatust(1)}
             style={{
               backgroundColor: getBackgroundColort(),
               borderRadius: "5px",
@@ -231,7 +241,7 @@ const Page3component = (Props) => {
           </div>
           <div
             class="divbtn1"
-            onClick={()=>setclickstatusf(1)}
+            onClick={() => setclickstatusf(1)}
             style={{
               backgroundColor: getBackgroundColorf(),
               borderRadius: "5px",
@@ -246,7 +256,7 @@ const Page3component = (Props) => {
           </div>
           <div
             class="divbtn1"
-           
+
             style={{
               backgroundColor: "#d5d8da",
               borderRadius: "5px",
@@ -318,7 +328,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
-           defaultValue={monday}
+            defaultValue={monday}
             //  value="08am-05am"
             placeholder='8am-5am'
             onChange={(e) => setmonday(e.target.value)}
@@ -492,7 +502,7 @@ const Page3component = (Props) => {
           </div>
           <input
             type="text"
-           disabled
+            disabled
             style={{
               borderRadius: "0px 10px 10px 0px",
             }}
@@ -518,12 +528,12 @@ const Page3component = (Props) => {
       <div style={{
         marginTop: 30
       }}>
-       
+
       </div>
 
-      {jobdata===1&&
-      <ViewPostjob/>
-      }
+      {/* {jobdata === 1 &&
+        <ViewPostjob />
+      } */}
     </>
   )
 }

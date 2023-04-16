@@ -11,11 +11,11 @@ const Page2component = (Props) => {
     const [carearlavelerror, setcarearerror] = useState("");
     const [gendererror, setgendererror] = useState("");
     const [foamuserdescerror, setfoamUserdescerror] = useState("");
-    const [hourrate, sethourrate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.hourlyrate:"");
-    const [esdate, setesdate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.expdate:"")
-    const [carearlavel, setcarearlavel] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.careerlavel:"")
-    const [gender, setgender] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.genders:"")
-    const [fdescrption, setfdescrption] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.equpdescrption:"")
+    const [hourrate, sethourrate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].hourlyrate:"");
+    const [esdate, setesdate] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].expdate:"")
+    const [carearlavel, setcarearlavel] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].careerlavel:"")
+    const [gender, setgender] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].genders:"")
+    const [fdescrption, setfdescrption] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].equpdescrption:"")
 
     const [isvisible, setisvisible] = useState(0);
   const [issubmit, setissubmit] = useState(false);
@@ -66,7 +66,7 @@ const Page2component = (Props) => {
           setfoamUserdescerror("");
           setfissubmit(true);
         }
-        if (fissubmit === true) {
+        if (hourrate !== ""&&esdate !== ""&&carearlavel !== ""&&gender !== ""&&fdescrption !== "") {
           setisvisible(2);
           Props. getvisiblefoam2(2);
           Props.addTocondinfoHandler({
@@ -83,6 +83,7 @@ const Page2component = (Props) => {
       };
   return (
     <>
+    
       <div
                 class="dropdownitems"
                 style={{
@@ -142,7 +143,7 @@ const Page2component = (Props) => {
                     <select
                       name="format"
                       id="format"
-                      value={esdate}
+                      // value={esdate}
                       onChange={(e) => setesdate(e.target.value)}
                     >
                       <option selected>Enter Value...</option>

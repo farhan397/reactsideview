@@ -285,7 +285,7 @@ function Btncomponent() {
               />
             )}
             {showfoam === 2 && (
-              <Foam3Container
+              <Page3component
                 getprevioussfoam2={getprevioussfoam2}
                 getvisiblefoam3={getvisiblefoam3}
               />

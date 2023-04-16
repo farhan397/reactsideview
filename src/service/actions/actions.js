@@ -1,4 +1,4 @@
-import {ADD_USER_INFO} from '../constants'
+import {ADD_USER_INFO, DELETE_ITEM} from '../constants'
 import {ADD_COND_INFO} from '../constants'
 import {ADD_SHIFT_INFO} from '../constants'
 import {EDIT_ARRAY} from '../constants'
@@ -32,3 +32,12 @@ export const editarray =(indexn)=>{
        
    }
 }
+
+export const deleteItem = (id) => {
+   
+    return {
+   
+    type: DELETE_ITEM,
+    data: id
+    }
+  };

@@ -5,18 +5,16 @@ import { useSelector } from 'react-redux';
 const Foam1component = (Props) => {
 
   const getindex = useSelector(state => state.getindex);
-  console.log("ddd",getindex.editinedex)
- 
-  const foam1data = useSelector(state => state.userinformation);
+
   const foamsdata = useSelector(state => state.shiftinformation);
   
 
-  const [jobloking, setjobloking] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.lokingfor:"");
-  const [userexp, setUserexp] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.experience:"");
-   const [useredu, setUseredu] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.education:"");
+  const [jobloking, setjobloking] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].lokingfor:"");
+  const [userexp, setUserexp] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].experience:"");
+   const [useredu, setUseredu] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].education:"");
   
-  const [userskil, setUserskil] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.skill:"");
-  const [userdesc, setUserdesc] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].shiftdata.description:"");
+  const [userskil, setUserskil] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].skill:"");
+  const [userdesc, setUserdesc] = useState(foamsdata.length>0&&getindex.editinedex>-1? foamsdata[getindex.editinedex].description:"");
 
   const [joblokingerror, setjoblokingerror] = useState("");
   const [userexperror, setUserexperror] = useState("");
@@ -85,15 +83,18 @@ const Foam1component = (Props) => {
        setUserdescerror("");
        setissubmit(true);
      }
-     console.log(joblokingerror);
-     // if (
-     //   joblokingerror === "" &&
-     //   userexperror === "" &&
-     //   usereduerror === "" &&
-     //   userskilerror === "" &&
-     //   userdescerror === ""
-     // )
-     if (issubmit === true) {
+ console.log("foam 1 input filed",jobloking,userexp,useredu,userskil,userdesc)
+     if (
+      jobloking !== "" &&
+       userexp !== "" &&
+       useredu !== "" &&
+       userskil !== "" &&
+       userdesc !== ""
+     )
+     
+
+     
+      {
        setisvisible(1);
         Props.getVissiblityVALUE(1)
         Props.addTouserinfoHandler({

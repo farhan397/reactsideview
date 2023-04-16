@@ -1,7 +1,7 @@
 
 import {connect} from 'react-redux'
 import {addshiftinfo} from '../service/actions/actions'
-import Page3component from '../Component/Page3component'
+// import Page3component from '../Component/Page3component'
 
 
 const mapStateToProps=state=>({
@@ -12,5 +12,5 @@ const mapDispatchToProps=dispatch=>({
     addToshiftHandler:data=>dispatch(addshiftinfo(data))
 
 })
-export default connect(mapStateToProps,mapDispatchToProps)(Page3component)
+export default connect(mapStateToProps,mapDispatchToProps)
 // export default Home;
